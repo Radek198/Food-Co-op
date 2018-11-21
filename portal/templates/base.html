@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>$Title$</title>
+</head>
+<body>
+{% block head %}
+     {% if user.is_authenticated %}
+<div style="float:right;">
+ <h5 ><a href="/login/"> zaloguj </a> |<a href="/register/"> zarejestruj </a>| <a href="/user_info/"> profil </a>| <a href="/logout/"> wyloguj </a></h5>Zalogowano
+</div>
+    <p><h5><a href="/start/"> Home </a>|<a href="/koop_list/"> Kooperatywy </a>| <a href="/supplier_list/"> Dostawcy </a> | <a href="/forum/">Forum | <a href="/order/"> Zamowienie </a> </h5></p>
+    {% else %}
+         <div style="float:right;">
+         <h5><a href="/login/"> zaloguj </a> |<a href="/register/"> zarejestruj </a> | <a href="/user_info/"> profil </a>
+         </div>
+         <h5><a href="/start/"> Home </a>|<a href="/koop_list/"> Kooperatywy </a>| <a href="/supplier_list/"> Dostawcy |</a>  <a href="/forum/"> Forum </a></h5>
+
+    {% endif %}
+{% endblock %}
+
+<p>
+{% block content %}
+
+
+
+
+
+{% endblock %}
+</p>
+</body>
+
+</html>
+
+
+

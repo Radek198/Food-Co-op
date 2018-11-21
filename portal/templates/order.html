@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+  <p> <a href="/order_view/"> <img src="http://www.tnsglobal.pl/coslychac/files/2015/09/zakupy.jpg" height="100" width="200">  </a></p>
+        {%if form%}
+    <form action="{%url 'order'%}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="OK"/>
+    {%else%}
+
+   {% for product in products%}
+
+       {%  for sup in product.suppliers.all %}
+        <ul>
+            <li> Imie: {{sup.name}} </li>
+            <li> Nazwisko: {{sup.last_name}} </li>
+            <li> Miasto: {{sup.city}} </li>
+            <li> Wojewodztwo: {{sup.region}} </li>
+            <li> Street: {{sup.street}} </li>
+            <li> E-mail: {{sup.email}} </li>
+            <li> Telefon: {{sup.phone}} </li>
+        </ul>
+ <form >
+
+           <select multiple size="5" name="name">
+           {% for prod in sup.product_set.all %}
+           <option value = "{{ prod.name }}" id="pr"> {{ prod.name }} </option>
+               {% endfor %}
+           </select>
+
+{% endfor %}
+
+ {% csrf_token %}
+            <input type="button" value="Dodaj Produkty" name="products" id="button" />
+    </form>
+
+
+{% endfor %}
+        {%endif%}
+    </form>
+
+
+
+{%  for sup in supplier %}
+        <ul>
+            <li> Imie: {{sup.name}} </li>
+            <li> Nazwisko: {{sup.last_name}} </li>
+            <li> Miasto: {{sup.city}} </li>
+            <li> Wojewodztwo: {{sup.region}} </li>
+            <li> Street: {{sup.street}} </li>
+            <li> E-mail: {{sup.email}} </li>
+            <li> Telefon: {{sup.phone}} </li>
+        </ul>
+
+{% for prod in sup.product_set.all %}
+ <li>{{ prod.name }} </li>
+
+
+
+
+{% endfor %}
+
+{% endfor %}
+
+<script>
+    var csrftoken = "{{ csrf_token }}";
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $(function() {
+        var productSelected = $('select').find('option');
+        $("#button").on('click', function () {
+            var selectedProduct = $('select').children('option:selected');
+            var values = [];
+            $.each(selectedProduct, function (index, value) {
+                values.push($(value).val());
+            });
+
+            $.ajax({
+                url: "http://127.0.0.1:8000/order_add/",
+                data: JSON.stringify({'product': values}),
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json"
+
+            });
+
+        });
+    })
+</script>
+
+
+{% endblock %}

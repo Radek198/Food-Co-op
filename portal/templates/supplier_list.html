@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Dostawcy:</h2>
+        <ul>
+            {% for sup in supplier %}
+                <li> <a href="/supplier_info/{{ sup.id }}"> {{sup.name}}, {{sup.last_name}} </a> </li>
+
+            {% endfor %}
+        </ul>
+
+    <h2>Kategorie:</h2>
+        <ul>
+            {% for cat in category %}
+                <li> <a href="/category_info/{{ cat.slug }}"> {{cat.category_name}}</a> </li>
+
+            {% endfor %}
+        </ul>
+{% if user.is_authenticated %}
+    <a href="/category_add/">Dodaj Ktegorie</a>
+
+    {% endif %}
+{% endblock %}

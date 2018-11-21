@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+            <p> Kategoria: {{category.category_name}} </p>
+           <ul>
+            {% for product in products %}
+                <li>  {{product.name}}, {{product.description}}  </li>
+
+            {% endfor %}
+        </ul>
+
+<p><h5><a href="product_add/"> Dodaj Produkt </a>
+{% else %}
+  <p> Kategoria: {{category.category_name}} </p>
+           <ul>
+            {% for product in products %}
+                <li>  {{product.name}}, {{product.description}}  </li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

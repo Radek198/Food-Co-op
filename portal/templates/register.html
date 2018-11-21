@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p> Create User</p>
+ <form action="{% url 'register' %}" method="post">
+{%csrf_token%}
+{{ form.as_ul }}
+<input type="submit" value="ok"/>
+ </form>
+</body>
+</html>

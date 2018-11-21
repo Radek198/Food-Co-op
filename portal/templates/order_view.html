@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+  <ul>
+    <p>Produkty:</p>
+        {% for order in orders %}
+
+            {% for product in order.product.all %}
+
+                {% for supplier in product.suppliers.all %}
+
+            <li>{{ product }} </li>
+                    Dostawca: <a href=" /supplier_info/{{ supplier.id }}">{{ supplier.name }}, {{ supplier.last_name }}</a> </li>
+
+
+        {% endfor %}
+
+
+  {% endfor %}
+  {% endfor %}
+
+    </ul>
+<p>
+      <a href = "/order/"> Kontynuuj Zakupy</a>
+
+{% endblock %}

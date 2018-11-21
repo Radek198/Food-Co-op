@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+        <ul>
+             {% if photo %}
+            <li><img src="{{photo.url}}",height="200" width="200"> </li>
+            {% endif %}
+            <li> Imie: {{name}} </li>
+            <li> Nazwisko: {{last_name}} </li>
+            <li> Miasto: {{city}} </li>
+            <li> Wojewodztwo: {{region}} </li>
+            <li> Street: {{street}} </li>
+            <li> E-mail: {{email}} </li>
+            <li> Telefon: {{phone}} </li>
+        </ul>
+
+    <ul>
+    <p>Produkty</p>
+        {% for prod in products %}
+                <li> {{ prod.name }} </li>
+
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

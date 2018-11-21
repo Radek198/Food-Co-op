@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Dostawcy:</h2>
+        <ul>
+            {% for myus in myuser %}
+                <li> <a href="/supplier_info/{{ sup.id }}"> {{myus.username}} </a> </li>
+
+            {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <h2>Profil:</h2>
+        <ul>
+        <li>{{ myuser.username }}</li>
+        <li>{{ myuser.first_name }}</li>
+        <li>{{ myuser.last_name }}</li>
+        <li>{{ myuser.email }}</li>
+        <li>{{ myuser.koop }}</li>
+            <h5><a href="/user_edit/"> Edytuj </a>
+    {% else %}
+            <p> Nie jestes zalogowany:</p>
+         <li><a href={% url 'login'%}>Login</a></li>
+         <li><a href={% url 'start'%}>Home</a></li>
+
+        </ul>
+ {% endif %}
+{% endblock %}
+
+
+

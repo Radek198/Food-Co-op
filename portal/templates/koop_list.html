@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <h2>koop list:</h2>
+        <ul>
+            {% for koop in koop %}
+                <li> <a href="/koop_info/{{ koop.id }}"> {{koop.name}}, </a> {{koop.city}}  </li>
+
+            {% endfor %}
+        </ul>
+
+    {%if form%}
+    <form action="{%url 'list_koop'%}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="button" value="Dodaj"/>
+    {%else%}
+
+        <ul>
+            {% for names in name%}
+                <li> <a href="/koop_info/{{ names.id }}">{{names.name}} , {{names.city}}   </a></li>
+
+
+            {%endfor%}
+            {% for city in city%}
+                <li> <a href="/koop_info/{{ city.id }}">{{city}}</a>   {{ city.city }} </li>
+
+            {%endfor%}
+
+        </ul>
+        {%endif%}
+    </form>
+    <p><h5><a href="add_koop/"> Dodaj Kooperywe </a>
+
+{% else %}
+<h2>koop list:</h2>
+        <ul>
+            {% for koop in koop %}
+                <li> <a href="/koop_info/{{ koop.id }}"> {{koop.name}}, </a> {{koop.city}}  </li>
+
+            {% endfor %}
+        </ul>
+
+    {%if form%}
+    <form action="{%url 'list_koop'%}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="button" value="Dodaj"/>
+    {%else%}
+
+        <ul>
+            {% for names in name%}
+                <li> <a href="/koop_info/{{ names.id }}">{{names.name}} , {{names.city}}   </a></li>
+
+
+            {%endfor%}
+            {% for city in city%}
+                <li> <a href="/koop_info/{{ city.id }}">{{city}}</a> {{ city.city }} </li>
+
+            {%endfor%}
+
+        </ul>
+        {%endif%}
+{%  endif %}
+    </form>
+
+
+{% endblock %}

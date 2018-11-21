@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+        <ul>
+            <li> Nazwa: {{name}} </li>
+            <li> Miasto: {{city}} </li>
+            <li> Wojewodztwo: {{district}} </li>
+            <li> E-mail: {{email}} </li>
+            <li> Telefon: {{phone}} </li>
+        </ul>
+
+     <p><h5><a href="/koop/edit/{{ id }}/"> edytuj </a>
+
+    {% else %}
+
+        <ul>
+            <li> Nazwa: {{name}} </li>
+            <li> Miasto: {{city}} </li>
+            <li> Wojewodztwo: {{district}} </li>
+            <li> E-mail: {{email}} </li>
+            <li> Telefon: {{phone}} </li>
+        </ul>
+
+    {%  endif %}
+
+{% endblock %}

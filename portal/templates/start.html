@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+    <div>
+<a href="/koop_list/"><img src="http://www.celerycharlesandpals.com/wp-content/uploads/2017/05/COOPERATION-9inc-1024x485.jpg" height="300" width="300"></a>
+<a href="/supplier_list/"><img src="https://st2.depositphotos.com/4521519/10947/v/950/depositphotos_109474846-stock-illustration-farmer-cartoon-character-vector-illustration.jpg" height="300" width="300"></a>
+<a href="/forum/"><img src="http://www.tombostudios.com/graphix/veggieTales.jpg" height="300" width="300"></a>
+    {% if user.is_authenticated %}
+<a href="/order_view/"> <img src="http://www.tnsglobal.pl/coslychac/files/2015/09/zakupy.jpg" height="350" width="500">  </a>
+{% endif %}
+</div>
+
+{% endblock %}

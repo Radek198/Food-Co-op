@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head><meta charset="utf-8"></head>
+    <body>
+        <form action="{%url 'category_add'%}" method="post">
+    {% csrf_token %}
+    {{form.as_ul}}
+    <input type="submit" value="OK"/>
+        </form>
+
+    </body>
+</html>

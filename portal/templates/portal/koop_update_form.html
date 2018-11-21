@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p> Edytujemy</p>
+ <form action="{% url 'edit_koop' object.pk %}" method="post">
+{%csrf_token%}
+{{ form.as_ul }}
+<input type="submit" value="ok"/>
+ </form>
+</body>
+</html>
