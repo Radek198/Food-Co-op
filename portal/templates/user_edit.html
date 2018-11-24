@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-        <body>
-        <form action="{%url 'user_edit'%}" method="post">
+<body>
+    <form action="{%url 'user_edit'%}" method="post">
     {% csrf_token %}
-    {{form.as_ul}}
-    <input type="submit" value="OK"/>
-        </form>
-
-    </body>
+        {{form.as_ul}}
+        <input type="submit" value="OK"/>
+    </form>
+</body>
 
 {% endblock %}

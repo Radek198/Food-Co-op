@@ -1,7 +1,7 @@
 
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import UpdateView, FormView
+from django.views.generic import UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from rest_framework.views import APIView
@@ -21,38 +21,28 @@ import json
 # Create your views here.
 
 
-ART = (
-    ('art1', 'art1'),
-('art1', 'art1'),
-('art2', 'art2'),
-('art3', 'art3'),
-('art4', 'art4'),
-('art5', 'art5'),
-
-)
 
 class StartView(View):
 
     def get(self, request):
 
-        ctx = {
-
-            'ART': ART,
-        }
+        ctx = {}
         return render(request, "start.html", ctx)
 
 
 class AddCustomUserView(FormView):
-   form_class = CustomUserCreationForm
-   template_name = 'register.html'
-   success_url = '/'
-   def form_valid(self, form):
-       # CustomUser.objects.create_user(**form.cleaned_data)
-       MyUser.objects.create_user(
+    form_class = CustomUserCreationForm
+    template_name = 'register.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+
+        # CustomUser.objects.create_user(**form.cleaned_data)
+        MyUser.objects.create_user(
            form.cleaned_data['username'],
            password=form.cleaned_data['password1'],
            email=form.cleaned_data['email'])
-       return HttpResponseRedirect('/start')
+        return HttpResponseRedirect('/start')
 
 
 class UserListView(View):
@@ -71,9 +61,11 @@ class UserInfoView(View):
 
 #    request.user
 class LoginView(FormView):
+
     form_class = LoginForm
     template_name = 'login.html'
     success_url = "/"
+
     def form_valid(self, form):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
@@ -85,14 +77,17 @@ class LoginView(FormView):
             return HttpResponseRedirect('/start/')
             #return super(LoginView, self).form_valid(form)
 
+
 class UserEditView(FormView):
 
     def get(self, request):
 
         form = UpdateProfile()
-
         return render(request, 'user_edit.html', {'form': form})
+
+
     def post(self, request):
+
         form = UpdateProfile(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
@@ -107,15 +102,15 @@ class UserEditView(FormView):
 
     from django.contrib.auth import logout
 
+
 class LogoutView(View):
-    def get(selfself, request):
+
+    def get(self, request):
         print(request.user)
         print(request.user.is_authenticated)
         myuser = request.user
         order = Order.objects.filter(client=myuser)
         order.delete()
-
-
         logout(request)
 
         print(request.user)
@@ -156,8 +151,8 @@ class LogoutView(View):
 #            return render(request, 'add_user.html', ctx)
 
 
-
 class AddKoopView(View):
+
     def get(self, request):
         form = AddKoopForm()
 
@@ -167,6 +162,7 @@ class AddKoopView(View):
         return render(request, "add_koop.html", ctx)
 
     def post(self, request):
+
         form = AddKoopForm(request.POST)
         if form.is_valid():
 
@@ -174,7 +170,7 @@ class AddKoopView(View):
             email = form.cleaned_data['email']
             city = form.cleaned_data['city']
 
-            newkopp = Koop.objects.create(name = name, email = email, city = city)
+            newkopp = Koop.objects.create(name=name, email=email, city=city)
 
 
             return HttpResponseRedirect('/start/')
@@ -193,8 +189,6 @@ class EditKoopView(UpdateView):
 class KoopListView(View):
 
     def get(self, request):
-
-
         koop = Koop.objects.order_by('name')
         form = SearchForm()
         ctx = {
@@ -208,10 +202,8 @@ class KoopListView(View):
         form = SearchForm(request.POST)
         if form.is_valid():
             search = form.cleaned_data['search']
-
             name = Koop.objects.filter(name__icontains=search)
             city = Koop.objects.filter(city__icontains=search)
-
             ctx = {
                 'name': name,
                 'city': city
@@ -219,8 +211,12 @@ class KoopListView(View):
 
             return render(request, "koop_list.html", ctx)
 
+
 class KoopInfoView(View):
+
+
      def get(self, request, id):
+
         koop = Koop.objects.get(id=id)
         name = koop.name
         city = koop.city
@@ -239,8 +235,11 @@ class KoopInfoView(View):
         }
         return render(request, "koop_info.html", ctx)
 
+
 class SupplierAddView(View):
+
     def get(self, request):
+
         form = AddSupplierForm()
 
         ctx = {

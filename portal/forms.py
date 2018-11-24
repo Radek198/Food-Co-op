@@ -48,19 +48,24 @@ class AddKoopForm (forms.ModelForm):
            raise ValidationError("kooperatywa juz zarejestrowana")
         return name
 
+
 class EditKoopForm (forms.ModelForm):
     email = forms.CharField(max_length=64, validators=[EmailValidator()])
     District= forms.CharField(max_length=64, required = False)
     Phone = forms.CharField(max_length=64, required = False)
+
+
     class Meta:
         model = Koop
         fields = '__all__'
+
     def clean_name(self):
         name = self.cleaned_data['name']
         queryset = MyUser.objects.filter(name=name)
         if queryset:
-           raise ValidationError("kooperatywa juz zarejestrowana")
+            raise ValidationError("kooperatywa juz zarejestrowana")
         return name
+
 
 class SearchForm(forms.Form):
     search = forms.CharField(label="search", max_length=255)
@@ -91,7 +96,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(max_length=64, widget=forms.PasswordInput)
 
 class UpdateProfile(forms.ModelForm):
-    username = forms.CharField(required=True,)
+    username = forms.CharField(required=True)
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
